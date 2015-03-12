@@ -3,7 +3,7 @@
   "version": "0.10.1",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "main": "./alchemyapi.js",
   "dependencies": {

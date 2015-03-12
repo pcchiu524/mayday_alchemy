@@ -29,7 +29,8 @@ var alchemyapi = new AlchemyAPI();
 app.engine('dust',consolidate.dust);
 app.set('views',__dirname + '/views');
 app.set('view engine', 'dust');
-app.set('port', process.env.PORT || 3000);
+//app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3333);
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -44,15 +45,17 @@ app.get('/', example);
 
 
 
-var port = process.env.PORT || 3000;
+//var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3333;
 server.listen(port, function(){
 	console.log('Express server listening on port ' + port);
-	console.log('To view the example, point your favorite browser to: localhost:3000'); 
+	console.log('To view the example, point your favorite browser to: localhost:' + port); 
 });
 
 
 
-var demo_text = 'Yesterday dumb Bob destroyed my fancy iPhone in beautiful Denver, Colorado. I guess I will have to head over to the Apple Store and buy a new one.';
+//var demo_text = 'Yesterday dumb Bob destroyed my fancy iPhone in beautiful Denver, Colorado. I guess I will have to head over to the Apple Store and buy a new one.';
+var demo_text = 'The Thai food sucks but Chinese food is awesome';
 var demo_url = 'http://www.npr.org/2013/11/26/247336038/dont-stuff-the-turkey-and-other-tips-from-americas-test-kitchen';
 var demo_html = '<html><head><title>Node.js Demo | AlchemyAPI</title></head><body><h1>Did you know that AlchemyAPI works on HTML?</h1><p>Well, you do now.</p></body></html>';
 
@@ -77,6 +80,7 @@ function keywords(req, res, output) {
 	alchemyapi.keywords('text', demo_text, { 'sentiment':1 }, function(response) {
 		output['keywords'] = { text:demo_text, response:JSON.stringify(response,null,4), results:response['keywords'] };
 		concepts(req, res, output);
+		//res.render('example',output);
 	});
 }
 
@@ -186,6 +190,7 @@ function image_keywords(req, res, output) {
 	alchemyapi.image_keywords('url', demo_url, {}, function(response) {
 		output['image_keywords'] = { url:demo_url, response:JSON.stringify(response,null,4), results:response };
 		res.render('example',output);
+		//res.json(200,output);
 	});
 }
 
